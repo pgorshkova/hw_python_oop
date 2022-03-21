@@ -91,8 +91,9 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> Union[int, float]:
         return ((self.COEFF_CALORIE_3 * self.weight
-                + (self.get_mean_speed() ** self.COEFF_CALORIE_4 // self.height)
-                 * self.COEFF_CALORIE_5 * self.weight)
+                + ((self.get_mean_speed() ** self.COEFF_CALORIE_4)
+                 // self.height)
+                * self.COEFF_CALORIE_5 * self.weight)
                 * self.duration * self.MIN_IN_HOUR)
 
 
@@ -122,14 +123,15 @@ class Swimming(Training):
 
     def get_spent_calories(self) -> Union[int, float]:
         return ((self.get_mean_speed() + self.COEFF_CALORIE_6)
-                * self.COEFF_CALORIE_4 * self.weight)
+                * self.COEFF_CALORIE_4
+                * self.weight
+                )
 
 
-sport = {
-        'SWM': Swimming,
-        'RUN': Running,
-        'WLK': SportsWalking
-    }
+sport = {'SWM': Swimming,
+         'RUN': Running,
+         'WLK': SportsWalking
+         }
 
 
 def read_package(workout_type: str, data: list) -> Training:

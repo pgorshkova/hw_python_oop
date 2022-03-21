@@ -67,8 +67,8 @@ class Running(Training):
     def get_spent_calories(self) -> Union[int, float]:
         return ((self.COEFF_CALORIE_1 * self.get_mean_speed()
                  - self.COEFF_CALORIE_2)
-                * self.weight / self.M_IN_KM *
-                (self.duration * self.MIN_IN_HOUR))
+                * self.weight / self.M_IN_KM
+                * (self.duration * self.MIN_IN_HOUR))
 
 
 class SportsWalking(Training):
@@ -90,8 +90,8 @@ class SportsWalking(Training):
         self.height = height
 
     def get_spent_calories(self) -> Union[int, float]:
-        return ((self.COEFF_CALORIE_3 * self.weight +
-                (self.get_mean_speed() ** self.COEFF_CALORIE_4 // self.height)
+        return ((self.COEFF_CALORIE_3 * self.weight
+                + (self.get_mean_speed() ** self.COEFF_CALORIE_4 // self.height)
                  * self.COEFF_CALORIE_5 * self.weight)
                 * self.duration * self.MIN_IN_HOUR)
 

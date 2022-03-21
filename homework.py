@@ -1,11 +1,14 @@
+from typing import Union
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
     def __init__(self,
                  training_type: str,
-                 duration: float,
-                 distance: float,
-                 speed: float,
-                 calories: float,
+                 duration: Union[int, float],
+                 distance: Union[int, float],
+                 speed: Union[int, float],
+                 calories: Union[int, float],
                  ) -> None:
         self.training_type = training_type
         self.duration = duration
@@ -29,22 +32,22 @@ class Training:
 
     def __init__(self,
                  action: int,
-                 duration: float,
-                 weight: float,
+                 duration: Union[int, float],
+                 weight: Union[int, float],
                  ) -> None:
         self.action = action
         self.duration = duration
         self.weight = weight
 
-    def get_distance(self) -> float:
+    def get_distance(self) -> Union[int, float]:
         """Получить дистанцию в км."""
         return self.action * self.LEN_STEP / self.M_IN_KM
 
-    def get_mean_speed(self) -> float:
+    def get_mean_speed(self) -> Union[int, float]:
         """Получить среднюю скорость движения."""
         return self.get_distance() / self.duration
 
-    def get_spent_calories(self) -> float:
+    def get_spent_calories(self) -> Union[int, float]:
         """Получить количество затраченных калорий."""
 
     def show_training_info(self) -> InfoMessage:
@@ -61,7 +64,7 @@ class Running(Training):
     COEFF_CALORIE_1: int = 18
     COEFF_CALORIE_2: int = 20
 
-    def get_spent_calories(self) -> float:
+    def get_spent_calories(self) -> Union[int, float]:
         return ((self.COEFF_CALORIE_1 * self.get_mean_speed()
                  - self.COEFF_CALORIE_2)
                 * self.weight / self.M_IN_KM *
@@ -76,9 +79,9 @@ class SportsWalking(Training):
 
     def __init__(self,
                  action: int,
-                 duration: float,
-                 weight: float,
-                 height: float,
+                 duration: Union[int, float],
+                 weight: Union[int, float],
+                 height: Union[int, float],
                  ) -> None:
         super().__init__(action,
                          duration,
@@ -86,7 +89,7 @@ class SportsWalking(Training):
                          )
         self.height = height
 
-    def get_spent_calories(self) -> float:
+    def get_spent_calories(self) -> Union[int, float]:
         return ((self.COEFF_CALORIE_3 * self.weight +
                 (self.get_mean_speed() ** self.COEFF_CALORIE_4 // self.height)
                  * self.COEFF_CALORIE_5 * self.weight)
@@ -101,9 +104,9 @@ class Swimming(Training):
 
     def __init__(self,
                  action: int,
-                 duration: float,
-                 weight: float,
-                 length_pool: float,
+                 duration: Union[int, float],
+                 weight: Union[int, float],
+                 length_pool: Union[int, float],
                  count_pool: float,
                  ) -> None:
         super().__init__(action,
@@ -113,11 +116,11 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
 
-    def get_mean_speed(self) -> float:
+    def get_mean_speed(self) -> Union[int, float]:
         return (self.length_pool
                 * self.count_pool / self.M_IN_KM / self.duration)
 
-    def get_spent_calories(self) -> float:
+    def get_spent_calories(self) -> Union[int, float]:
         return ((self.get_mean_speed() + self.COEFF_CALORIE_6)
                 * self.COEFF_CALORIE_4 * self.weight)
 

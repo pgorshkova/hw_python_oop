@@ -145,8 +145,7 @@ def read_package(workout_type: str, data: list) -> Union[Training, None]:
     """Прочитать данные полученные от датчиков."""
     if workout_type in SPORT:
         return SPORT[workout_type](*data)
-    else:
-        return None
+    return None
 
 
 def main(training: Union[Training, None]) -> None:
